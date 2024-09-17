@@ -1,0 +1,426 @@
+{UTF-8}
+Población  = A FUNCTION OF( crecimiento poblacional,-Muertes,-Nuevos consumidores,-Nuevos criminales\
+		,Rehabilitacion con,Rehabilitacion criminales,Total) ~~|
+Población= INTEG (
+	crecimiento poblacional+Rehabilitacion con+Rehabilitacion criminales-Muertes-Nuevos consumidores\
+		-Nuevos criminales,
+		30000)
+	~	personas
+	~		|
+
+Total=
+	Consumidores+Criminales+Población
+	~	personas
+	~		|
+
+crecimiento poblacional=
+	tasa de crecimiento poblacional*(Población+Criminales+Consumidores)
+	~	personas/year
+	~		|
+
+inversion en bienestar=
+	0.25*Presupuesto
+	~	PeriCoin
+	~		|
+
+Presupuesto=
+	Población*0.005
+	~	PeriCoin
+	~		|
+
+Inversión real contra oferta=
+	Inversión contra oferta*(1-(Corrupción*Cultura de la ilegalidad))
+	~	PeriCoin
+	~		|
+
+Tasa de reclutamiento=
+	0.05
+	~	1/year
+	~		|
+
+Inversión contra oferta=
+	0.75*Presupuesto
+	~	PeriCoin
+	~		|
+
+Aux 3=
+	1
+	~	personas/(year*PeriCoin)
+	~		|
+
+Capturas=
+	Aux 3*Inversión real contra oferta/10
+	~	personas/year
+	~		|
+
+Rehabilitacion criminales=
+	IF THEN ELSE(Criminales<=0, 0, Criminales*Tasa de rehabilitacion cri+Capturas )
+	~	personas/year
+	~		|
+
+Salida cri=
+	IF THEN ELSE(Criminales<=0, 0, tasa de salida*Criminales )
+	~	personas/year
+	~		|
+
+Efecto Inversion Exp=
+	EXP(-((Aux*inversion en bienestar*(1-Corrupción)-145))/800)-0.2
+	~	1
+	~		|
+
+Aux=
+	1
+	~	1/PeriCoin
+	~		|
+
+Aux 2=
+	1
+	~	personas/Crimenes
+	~		|
+
+Cultura de la ilegalidad=
+	Efecto crimenes*Efecto Inversion Exp
+	~	1
+	~		|
+
+Efecto crimenes=
+	IF THEN ELSE( "Waluigi (Crimenes relativos)" < 0.44928, POWER( ("Waluigi (Crimenes relativos)"\
+		*Aux 2 + 0.1) , 5)*20 + 1 , IF THEN ELSE( "Waluigi (Crimenes relativos)"< 0.99845, \
+		POWER( ("Waluigi (Crimenes relativos)"*Aux 2 - 1.09856+0.1) , 5)*20 + 3  , 3))
+	~	1
+	~		|
+
+Crimenes relacionados con drogas=
+	(tasa de delincuencia consumidores*Consumidores)+(tasa de delincuencia criminales*Criminales\
+		)
+	~	Crimenes
+	~		|
+
+tasa de captacion por criminales=
+	0.1
+	~	1/year
+	~		|
+
+"Waluigi (Crimenes relativos)"=
+	Crimenes relacionados con drogas/(Población)
+	~	Crimenes/personas
+	~		|
+
+Nuevos consumidores=
+	(Captación espontanea+Captación de consumidores)*Cultura de la ilegalidad
+	~	personas/year
+	~		|
+
+Nuevos criminales=
+	(Tasa de reclutamiento*fraccion de criminales*Población*Cultura de la ilegalidad)
+	~	personas/year
+	~		|
+
+Captación de consumidores=
+	(Población*Tasa de captación de consumidores*fraccion de Consumidores)+(fraccion de criminales\
+		*tasa de captacion por criminales
+*Población)
+	~	personas/year
+	~		|
+
+Consumidores= INTEG (
+	Nuevos consumidores-Rehabilitacion con-salida Con,
+		3000)
+	~	personas
+	~		|
+
+Criminales= INTEG (
+	Nuevos criminales-Rehabilitacion criminales-Salida cri,
+		500)
+	~	personas
+	~		|
+
+Tasa de rehabilitacion cri=
+	0.0009
+	~	1/year
+	~		|
+
+fraccion de Consumidores=
+	Consumidores/(Población+Consumidores+0.001)
+	~	1
+	~		|
+
+Rehabilitacion con=
+	IF THEN ELSE(Consumidores<=0, 0, Consumidores*Tasa de rehabilitacion con)
+	~	personas/year
+	~		|
+
+salida Con=
+	IF THEN ELSE(Consumidores<=0, 0, Consumidores*tasa de salida consumidores)
+	~	
+	~		|
+
+Tasa de rehabilitacion con=
+	0.001
+	~	1/year
+	~		|
+
+Corrupción=
+	0.5
+	~	1
+	~		|
+
+tasa de crecimiento poblacional=
+	0.02
+	~	
+	~		|
+
+tasa de muertes=
+	0.006
+	~	
+	~		|
+
+Muertes=
+	tasa de muertes*Población
+	~	
+	~		|
+
+tasa de delincuencia consumidores=
+	0.001
+	~	Crimenes/personas
+	~		|
+
+tasa de delincuencia criminales=
+	5
+	~	Crimenes/personas
+	~		|
+
+tasa de salida=
+	0.016
+	~	1/year
+	~		|
+
+fraccion de criminales=
+	Criminales/(Población+Criminales+0.001)
+	~	1
+	~		|
+
+tasa de salida consumidores=
+	0.01
+	~	
+	~		|
+
+Captación espontanea=
+	Población*tasa de captación expontanea
+	~	personas/year
+	~		|
+
+Tasa de captación de consumidores=
+	0.01
+	~	1/year
+	~		|
+
+tasa de captación expontanea=
+	1e-05
+	~	1/year
+	~		|
+
+********************************************************
+	.Control
+********************************************************~
+		Simulation Control Parameters
+	|
+
+FINAL TIME  = 100
+	~	year
+	~	The final time for the simulation.
+	|
+
+INITIAL TIME  = 0
+	~	year
+	~	The initial time for the simulation.
+	|
+
+SAVEPER  = 
+        TIME STEP
+	~	year [0,?]
+	~	The frequency with which output is stored.
+	|
+
+TIME STEP  = 0.25
+	~	year [0,?]
+	~	The time step for the simulation.
+	|
+
+\\\---/// Sketch information - do not modify anything except names
+V300  Do not put anything below this section - it will be ignored
+*View 1
+$192-192-192,0,Times New Roman|12||0-0-0|0-0-0|0-0-0|-1--1--1|255-255-255|96,96,80,0
+10,1,Consumidores,1712,159,55,44,3,131,0,0,0,0,0,0,0,0,0,0,0,0
+10,2,Población,1068,195,85,49,3,131,0,0,0,0,0,0,0,0,0,0,0,0
+1,3,4,2,4,0,0,22,0,0,0,-1--1--1,,1|(784,167)|
+11,4,266,580,167,8,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,5,crecimiento poblacional,580,196,37,19,40,131,0,0,-1,0,0,0,0,0,0,0,0,0
+1,6,8,1,4,0,0,22,0,0,0,-1--1--1,,1|(1568,176)|
+1,7,8,2,100,0,0,22,0,0,0,-1--1--1,,1|(1308,176)|
+11,8,288,1472,176,8,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,9,Nuevos consumidores,1472,203,44,19,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,10,fraccion de Consumidores,1545,559,48,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,11,Tasa de captación de consumidores,1701,332,68,19,8,131,0,0,0,0,0,0,0,0,0,0,0,0
+1,12,2,10,1,0,0,0,0,64,0,-1--1--1,,1|(1293,453)|
+1,13,1,10,1,0,0,0,0,64,0,-1--1--1,,1|(1824,308)|
+10,14,Captación espontanea,1497,8,36,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,15,2,14,1,0,0,0,0,64,0,-1--1--1,,1|(1201,12)|
+1,16,14,8,1,0,0,0,3,64,0,0-128-255,|12||0-0-0,1|(1497,48)|
+10,17,tasa de captación expontanea,1680,-117,56,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,18,17,14,1,0,0,0,0,64,0,-1--1--1,,1|(1560,-107)|
+10,19,Captación de consumidores,1504,320,44,19,8,131,0,0,0,0,0,0,0,0,0,0,0,0
+1,20,11,19,1,0,0,0,0,64,0,-1--1--1,,1|(1632,343)|
+1,21,10,19,1,0,0,0,0,64,0,-1--1--1,,1|(1544,508)|
+1,22,19,9,1,0,0,0,0,64,0,-1--1--1,,1|(1472,256)|
+1,23,2,19,1,0,0,0,0,64,0,-1--1--1,,1|(1316,251)|
+10,24,Criminales,1077,695,80,37,3,131,0,0,0,0,0,0,0,0,0,0,0,0
+1,25,26,24,4,0,0,22,0,0,0,-1--1--1,,1|(1028,564)|
+11,26,244,1028,459,8,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,27,Nuevos criminales,1028,480,57,11,40,131,0,0,-1,0,0,0,0,0,0,0,0,0
+10,28,Tasa de reclutamiento,889,515,43,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,29,26,2,100,0,0,22,0,0,0,-1--1--1,,1|(1028,347)|
+10,30,fraccion de criminales,733,395,36,19,8,131,0,0,0,0,0,0,0,0,0,0,0,0
+1,31,24,30,1,0,0,0,0,64,0,-1--1--1,,1|(769,611)|
+1,32,2,30,1,0,0,0,0,64,0,-1--1--1,,1|(816,283)|
+1,33,30,27,1,0,0,0,0,64,0,-1--1--1,,1|(897,456)|
+12,34,48,2001,184,12,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,35,37,34,4,0,0,22,0,0,0,-1--1--1,,1|(1928,176)|
+1,36,37,1,100,0,0,22,0,0,0,-1--1--1,,1|(1805,176)|
+11,37,48,1856,176,8,8,33,3,0,0,4,0,0,0,0,0,0,0,0,0
+10,38,salida Con,1896,176,36,11,40,131,0,0,3,0,0,0,0,0,0,0,0,0
+12,39,48,1056,947,12,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,40,42,39,4,0,0,22,0,0,0,-1--1--1,,1|(1056,879)|
+1,41,42,24,100,0,0,22,0,0,0,-1--1--1,,1|(1056,767)|
+11,42,48,1056,811,8,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,43,Salida cri,1056,828,32,11,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,44,1,38,1,0,0,0,0,64,0,-1--1--1,,1|(1813,204)|
+10,45,tasa de salida consumidores,1973,-45,44,19,8,131,0,0,0,0,0,0,0,0,0,0,0,0
+1,46,45,38,1,0,0,0,0,64,0,-1--1--1,,1|(2017,59)|
+10,47,tasa de salida,825,927,43,11,8,131,0,0,0,0,0,0,0,0,0,0,0,0
+10,48,tasa de captacion por criminales,1272,319,56,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,49,48,19,1,0,0,0,0,64,0,-1--1--1,,1|(1364,316)|
+1,50,24,43,1,0,0,0,0,64,0,-1--1--1,,1|(1009,747)|
+10,51,Inversión contra oferta,1548,979,52,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,52,Corrupción,1724,971,37,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,53,Inversión real contra oferta,1632,788,43,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,54,52,53,1,0,0,0,0,64,0,-1--1--1,,1|(1729,908)|
+1,55,51,53,1,0,0,0,0,64,0,-1--1--1,,1|(1552,900)|
+10,56,Capturas,1316,804,32,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,57,53,56,1,0,0,0,0,64,0,-1--1--1,,1|(1493,811)|
+10,58,Crimenes relacionados con drogas,197,433,73,17,8,131,0,0,0,0,0,0,0,0,0,0,0,0
+10,59,fraccion de criminales,1433,447,41,19,8,2,0,7,-1,0,0,0,128-128-128,0-0-0,|12||255-255-255,0,0,0,0,0,0
+1,60,59,19,1,0,0,0,0,64,0,-1--1--1,,1|(1416,380)|
+10,61,Consumidores,261,264,55,11,8,2,0,7,-1,0,0,0,128-128-128,0-0-0,|12||255-255-255,0,0,0,0,0,0
+1,62,61,58,1,0,0,0,0,64,0,-1--1--1,,1|(256,264)|
+10,63,tasa de delincuencia criminales,32,608,64,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,64,tasa de delincuencia consumidores,-8,368,64,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,65,63,58,1,0,0,0,0,64,0,-1--1--1,,1|(144,572)|
+1,66,64,58,1,0,0,0,0,64,0,-1--1--1,,1|(104,428)|
+10,67,Cultura de la ilegalidad,656,725,41,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,68,inversion en bienestar,481,969,40,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,69,Criminales,561,357,43,11,8,2,0,6,-1,0,0,0,-1--1--1,0-0-0,|12||255-255-255,0,0,0,0,0,0
+1,70,69,58,1,0,0,0,0,64,0,-1--1--1,,1|(373,380)|
+12,71,48,229,161,12,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,72,4,71,100,0,0,22,0,0,0,-1--1--1,,1|(405,167)|
+10,73,tasa de crecimiento poblacional,585,3,61,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,74,73,5,1,0,0,0,0,64,0,-1--1--1,,1|(536,147)|
+12,75,48,1049,-132,12,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,76,78,75,4,0,0,22,0,0,0,-1--1--1,,1|(1052,-84)|
+1,77,78,2,100,0,0,22,0,0,0,-1--1--1,,1|(1052,59)|
+11,78,48,1052,-36,8,8,33,3,0,0,4,0,0,0,0,0,0,0,0,0
+10,79,Muertes,1085,-36,27,11,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,80,tasa de muertes,844,-125,49,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,81,80,79,1,0,0,0,0,64,0,-1--1--1,,1|(889,-69)|
+1,82,2,79,1,0,0,0,0,64,0,-1--1--1,,1|(1097,49)|
+1,83,47,43,1,0,0,0,0,64,0,-1--1--1,,1|(901,852)|
+1,84,2,5,1,0,0,0,0,64,0,-1--1--1,,1|(900,132)|
+1,85,87,2,4,0,0,22,0,0,0,-1--1--1,,1|(1128,328)|
+1,86,87,24,100,0,0,22,0,0,0,-1--1--1,,1|(1128,543)|
+11,87,1256,1128,421,8,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,88,Rehabilitacion criminales,1128,440,56,11,40,3,0,0,3,0,0,0,0,0,0,0,0,0
+1,89,91,2,4,0,0,22,0,0,0,-1--1--1,,1|(1264,147)|
+1,90,91,1,100,0,0,22,0,0,0,-1--1--1,,1|(1524,147)|
+11,91,618,1384,147,8,8,34,3,0,0,3,0,0,0,0,0,0,0,0,0
+10,92,Rehabilitacion con,1384,128,57,11,40,131,0,0,-1,0,0,0,0,0,0,0,0,0
+10,93,Tasa de rehabilitacion con,1300,35,56,19,8,131,0,0,0,0,0,0,0,0,0,0,0,0
+1,94,93,92,1,0,0,0,0,64,0,-1--1--1,,1|(1385,89)|
+10,95,Tasa de rehabilitacion cri,1320,543,52,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,96,95,88,1,0,0,0,0,64,0,-1--1--1,,1|(1216,471)|
+1,97,24,88,1,0,0,0,0,64,0,-1--1--1,,1|(1081,559)|
+1,98,1,92,1,0,0,0,0,64,0,-1--1--1,,1|(1548,100)|
+10,99,Total,461,295,20,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,100,Población,537,424,41,11,8,2,0,7,-1,0,0,0,128-128-128,0-0-0,|12||255-255-255,0,0,0,0,0,0
+1,101,28,27,1,0,0,0,0,64,0,-1--1--1,,1|(929,519)|
+1,102,2,27,1,0,0,0,0,64,0,-1--1--1,,1|(940,332)|
+10,103,Cultura de la ilegalidad,956,631,48,19,8,2,0,7,-1,0,0,0,128-128-128,0-0-0,|12||255-255-255,0,0,0,0,0,0
+1,104,103,27,1,0,0,0,0,64,0,-1--1--1,,1|(1001,564)|
+10,105,Cultura de la ilegalidad,1629,276,48,19,8,2,0,7,-1,0,0,0,128-128-128,0-0-0,|12||255-255-255,0,0,0,0,0,0
+1,106,105,9,1,0,0,0,0,64,0,-1--1--1,,1|(1580,223)|
+10,107,"Waluigi (Crimenes relativos)",408,481,59,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,108,58,107,1,0,0,0,0,64,0,-1--1--1,,1|(341,492)|
+1,109,100,107,1,0,0,0,0,64,0,-1--1--1,,1|(441,439)|
+10,110,Población,1388,1160,41,11,8,2,0,7,-1,0,0,0,128-128-128,0-0-0,|12||255-255-255,0,0,0,0,0,0
+10,111,Cultura de la ilegalidad,1880,856,48,19,8,2,0,7,-1,0,0,0,128-128-128,0-0-0,|12||255-255-255,0,0,0,0,0,0
+1,112,111,53,1,0,0,0,0,64,0,-1--1--1,,1|(1788,800)|
+10,113,Efecto Inversion Exp,416,740,52,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,114,68,113,0,0,0,0,0,64,0,-1--1--1,,1|(452,861)|
+1,115,113,67,1,0,0,0,0,64,0,-1--1--1,,1|(544,772)|
+10,116,Aux,221,903,15,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,117,116,113,1,0,0,0,0,64,0,-1--1--1,,1|(345,859)|
+10,118,Efecto crimenes,560,568,52,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,119,107,118,1,0,0,0,0,64,0,-1--1--1,,1|(493,504)|
+1,120,118,67,1,0,0,0,0,64,0,-1--1--1,,1|(636,627)|
+10,121,Aux 2,385,628,21,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,122,121,118,1,0,0,0,0,64,0,-1--1--1,,1|(473,616)|
+10,123,Corrupción,164,768,48,11,8,2,0,7,-1,0,0,0,128-128-128,0-0-0,|12||255-255-255,0,0,0,0,0,0
+1,124,123,113,1,0,0,0,0,64,0,-1--1--1,,1|(317,785)|
+1,125,56,88,1,0,0,0,2,64,0,-1--1--1,|12||255-255-255,1|(1208,552)|
+10,126,Aux 3,1301,920,21,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,127,126,56,0,0,0,0,0,64,0,-1--1--1,,1|(1308,868)|
+10,128,Presupuesto,965,1068,39,11,8,131,0,0,0,0,0,0,0,0,0,0,0,0
+1,129,110,128,1,0,0,0,0,64,0,-1--1--1,,1|(1157,1140)|
+1,130,128,68,1,0,0,0,0,64,0,-1--1--1,,1|(697,1057)|
+1,131,128,51,1,0,0,0,0,64,0,-1--1--1,,1|(1256,1059)|
+1,132,61,99,1,0,0,0,0,64,0,-1--1--1,,1|(365,288)|
+1,133,69,99,1,0,0,0,0,64,0,-1--1--1,,1|(521,320)|
+1,134,61,5,1,0,0,0,0,64,0,-1--1--1,,1|(396,223)|
+1,135,69,5,1,0,0,0,0,64,0,-1--1--1,,1|(560,315)|
+1,136,100,99,1,0,0,0,3,64,0,0-128-255,|12||0-0-0,1|(456,375)|
+1,137,99,2,1,0,0,0,0,64,0,-1--1--1,,1|(693,221)|
+///---\\\
+:L<%^E!@
+1:CasoBase.vdfx
+4:Time
+5:Total
+9:100años
+19:80,0
+24:0
+25:100
+26:100
+23:0
+15:0,0,0,0,0,0
+27:0,
+34:0,
+42:1
+72:0
+73:0
+35:Date
+36:YYYY-MM-DD
+37:2000
+38:1
+39:1
+40:0
+41:0
+95:0
+96:0
+77:0
+78:0
+93:0
+94:0
+92:0
+91:0
+90:0
+87:0
+75:
+43:

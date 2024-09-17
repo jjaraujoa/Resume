@@ -1,0 +1,229 @@
+{UTF-8}
+Captación consumidores  = A FUNCTION OF( fracción consumidores,fracción criminales\
+		,Población)
+	~	
+	~		|
+
+Captación espontanea  = A FUNCTION OF( Población)
+	~	
+	~		|
+
+Población  = A FUNCTION OF( Crecimiento poblacional,Nuevos consumidores,Nuevos criminales\
+		,Rehabilitación consumidores,Rehabilitación Criminales)
+	~	
+	~		|
+
+Consumidores  = A FUNCTION OF( Muertes consumidores,Nuevos consumidores,Rehabilitación consumidores\
+		)
+	~	
+	~		|
+
+Muertes criminales  = A FUNCTION OF( criminales 0)
+	~	
+	~		|
+
+Crecimiento poblacional  = A FUNCTION OF( Consumidores,criminales 0)
+	~	
+	~		|
+
+Crimenes relacionados con drogas  = A FUNCTION OF( Consumidores,criminales 0)
+	~	
+	~		|
+
+Nuevos criminales  = A FUNCTION OF( cultura de la ilegalidad 0,fracción criminales,Población\
+		)
+	~	
+	~		|
+
+Rehabilitación Criminales  = A FUNCTION OF( Capturas,criminales 0)
+	~	
+	~		|
+
+fracción consumidores  = A FUNCTION OF( Consumidores,Población)
+	~	
+	~		|
+
+Muertes consumidores  = A FUNCTION OF( )
+	~	
+	~		|
+
+Nuevos consumidores  = A FUNCTION OF( Captación consumidores,Captación espontanea,cultura de la ilegalidad 0\
+		)
+	~	
+	~		|
+
+Rehabilitación consumidores  = A FUNCTION OF( Consumidores)
+	~	
+	~		|
+
+Capturas  = A FUNCTION OF( Inversión real contra oferta)
+	~	
+	~		|
+
+Corrupción  = A FUNCTION OF( )
+	~	
+	~		|
+
+criminales 0  = A FUNCTION OF( Muertes criminales,Nuevos criminales,Rehabilitación Criminales\
+		)
+	~	
+	~		|
+
+cultura de la ilegalidad 0  = A FUNCTION OF( Crimenes relacionados con drogas,Inversión en bienestar\
+		)
+	~	
+	~		|
+
+fracción criminales  = A FUNCTION OF( criminales 0,Población)
+	~	
+	~		|
+
+Inversión contra oferta  = A FUNCTION OF( Presupuesto)
+	~	
+	~		|
+
+Inversión en bienestar  = A FUNCTION OF( Presupuesto)
+	~	
+	~		|
+
+Inversión real contra oferta  = A FUNCTION OF( Corrupción,cultura de la ilegalidad 0\
+		,Inversión contra oferta)
+	~	
+	~		|
+
+Presupuesto  = A FUNCTION OF( Inversión contra oferta,Inversión en bienestar,Población\
+		)
+	~	
+	~		|
+
+********************************************************
+	.Control
+********************************************************~
+		Simulation Control Parameters
+	|
+
+FINAL TIME  = 100
+	~	Month
+	~	The final time for the simulation.
+	|
+
+INITIAL TIME  = 0
+	~	Month
+	~	The initial time for the simulation.
+	|
+
+SAVEPER  = 
+        TIME STEP
+	~	Month [0,?]
+	~	The frequency with which output is stored.
+	|
+
+TIME STEP  = 1
+	~	Month [0,?]
+	~	The time step for the simulation.
+	|
+
+\\\---/// Sketch information - do not modify anything except names
+V300  Do not put anything below this section - it will be ignored
+*View 1
+$192-192-192,0,Times New Roman|12||0-0-0|0-0-0|0-0-255|-1--1--1|255-255-255|96,96,20,0
+10,1,Población,3995,1720,32,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,2,criminales 0,3059,2185,40,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,3,Nuevos criminales,4085,2148,57,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,4,3,1,1,0,45,0,2,64,0,-1--1--1,|12||0-0-0,1|(4156,1897)|
+1,5,1,3,1,0,43,0,2,64,0,-1--1--1,|12||0-0-0,1|(4040,1927)|
+10,6,fracción criminales,3713,2149,60,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,7,6,3,1,0,43,0,2,64,0,-1--1--1,|12||0-0-0,1|(3820,2196)|
+10,8,cultura de la ilegalidad 0,4476,723,39,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,9,8,3,1,0,43,0,2,64,0,-1--1--1,|12||0-0-0,1|(4553,1309)|
+1,10,3,2,1,0,43,0,2,64,0,-1--1--1,|12||0-0-0,1|(3656,2404)|
+10,11,Muertes criminales,2843,2465,59,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,12,11,2,1,0,45,0,2,64,0,-1--1--1,|12||0-0-0,1|(2992,2375)|
+1,13,2,11,1,0,43,0,2,64,0,-1--1--1,|12||0-0-0,1|(2887,2292)|
+10,14,Rehabilitación Criminales,3364,1937,45,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,15,Capturas,2776,1485,32,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,16,15,14,1,0,43,0,2,64,0,-1--1--1,|12||0-0-0,1|(2991,1808)|
+1,17,2,14,1,0,43,0,2,64,0,-1--1--1,|12||0-0-0,1|(3144,2048)|
+1,18,14,2,1,0,45,0,2,64,0,-1--1--1,|12||0-0-0,1|(3293,2037)|
+1,19,14,1,1,0,43,0,2,64,0,-1--1--1,|12||0-0-0,1|(3812,1883)|
+1,20,2,6,1,0,43,0,2,64,0,-1--1--1,|12||0-0-0,1|(3357,2124)|
+1,21,1,6,1,0,45,0,2,64,0,-1--1--1,|12||0-0-0,1|(3908,1968)|
+10,22,Inversión real contra oferta,3252,428,43,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,23,Inversión contra oferta,3009,724,52,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,24,Corrupción,2975,391,37,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,25,23,22,1,0,0,0,0,64,0,-1--1--1,,1|(3135,633)|
+1,26,24,22,1,0,0,0,0,64,0,-1--1--1,,1|(3132,372)|
+1,27,8,22,1,0,0,0,2,64,0,-1--1--1,|12||0-0-0,1|(3832,449)|
+1,28,22,15,1,0,0,0,0,64,0,-1--1--1,,1|(2809,771)|
+10,29,Presupuesto,2924,1031,39,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,30,29,23,1,0,43,0,2,64,0,-1--1--1,|12||0-0-0,1|(3004,856)|
+1,31,23,29,1,0,45,0,2,64,0,-1--1--1,|12||0-0-0,1|(2924,856)|
+1,32,1,29,1,0,0,0,2,64,0,-1--1--1,|12||0-0-0,1|(3125,1656)|
+10,33,Inversión en bienestar,3484,715,39,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,34,33,29,1,0,45,0,2,64,0,-1--1--1,|12||0-0-0,1|(3185,837)|
+1,35,29,33,1,0,43,0,2,64,0,-1--1--1,|12||0-0-0,1|(3235,956)|
+1,36,33,8,1,0,45,0,2,64,0,-1--1--1,|12||0-0-0,1|(4000,633)|
+10,37,Crimenes relacionados con drogas,3047,145,72,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,38,2,37,1,0,0,0,0,64,0,-1--1--1,,1|(2564,1536)|
+1,39,37,8,1,0,43,0,2,64,0,-1--1--1,|12||0-0-0,1|(4091,232)|
+10,40,Consumidores,3637,919,48,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,41,40,37,1,0,0,1,3,64,0,255-128-0,|0||-1--1--1,1|(3520,468)|
+10,42,Rehabilitación consumidores,3063,1353,45,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,43,42,40,1,0,45,0,2,64,0,-1--1--1,|0||-1--1--1,1|(3263,1033)|
+1,44,40,42,1,0,43,0,2,64,0,-1--1--1,|0||-1--1--1,1|(3339,1303)|
+1,45,42,1,1,0,43,0,2,64,0,-1--1--1,|0||-1--1--1,1|(3341,1605)|
+10,46,Muertes consumidores,4072,768,44,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,47,46,40,1,0,45,0,2,64,0,-1--1--1,|0||-1--1--1,1|(3884,796)|
+10,48,Nuevos consumidores,4253,1180,44,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,49,48,40,1,0,43,0,2,64,0,-1--1--1,|0||-1--1--1,1|(4025,1124)|
+1,50,8,48,1,0,43,0,2,64,0,-1--1--1,|0||-1--1--1,1|(4321,909)|
+10,51,Captación consumidores,4012,1428,44,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,52,51,48,1,0,43,0,2,64,0,-1--1--1,|0||-1--1--1,1|(4061,1321)|
+1,53,1,51,1,0,43,0,2,64,0,-1--1--1,|0||-1--1--1,1|(4031,1580)|
+10,54,fracción consumidores,3763,1185,44,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,55,40,54,1,0,43,0,2,64,0,-1--1--1,|0||-1--1--1,1|(3725,1049)|
+1,56,54,51,1,0,0,0,0,64,0,-1--1--1,,1|(3936,1311)|
+1,57,1,54,1,0,45,0,2,64,0,-1--1--1,|0||-1--1--1,1|(3751,1447)|
+1,58,48,1,1,0,45,0,2,64,0,-1--1--1,|0||-1--1--1,1|(4251,1456)|
+10,59,Captación espontanea,4431,1492,48,24,8,131,0,0,0,0,0,0,0,0,0,0,0,0
+1,60,59,48,1,0,43,0,2,64,0,-1--1--1,|0||-1--1--1,1|(4451,1328)|
+1,61,1,59,1,0,43,0,2,64,0,-1--1--1,|0||-1--1--1,1|(4296,1631)|
+1,62,6,51,1,0,0,1,3,64,0,255-128-0,|0||-1--1--1,1|(3729,1717)|
+10,63,Crecimiento poblacional,3455,1431,39,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,64,63,1,1,0,0,0,2,64,0,-1--1--1,|0||-1--1--1,1|(3633,1565)|
+1,65,2,63,1,0,0,1,3,64,0,255-128-0,|0||-1--1--1,1|(3137,1593)|
+1,66,40,63,1,0,0,0,2,64,0,-1--1--1,|0||-1--1--1,1|(3616,1207)|
+///---\\\
+:L<%^E!@
+5:Población
+9:Current
+19:20,0
+24:0
+25:0
+26:0
+23:0
+15:0,0,0,0,0,0
+27:0,
+34:0,
+42:1
+72:0
+73:0
+35:Date
+36:YYYY-MM-DD
+37:2000
+38:1
+39:1
+40:2
+41:0
+95:0
+96:0
+77:0
+78:0
+93:0
+94:0
+92:0
+91:0
+90:0
+87:0
+75:
+43:

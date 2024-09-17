@@ -1,0 +1,355 @@
+{UTF-8}
+funcion gráfica CRD=A FUNCTION OF(funcion gráfica CRD,Crimenes relacionados con drogas\
+		) ~~|
+funcion gráfica CRD=
+	~	
+	~		|
+
+Captación de consumidores=
+	(Población propensa*Tasa de captación de consumidores*fraccion de Consumidores)+(fraccion de criminales\
+		*tasa de captacion de criminales
+	*Población propensa)
+	~	personas/year
+	~		|
+
+entrada población propensa=
+	Población vulnerable*Cultura de la ilegalidad
+	~	personas/year
+	~		|
+
+Crimenes relacionados con drogas=
+	(tasa de delincuencia funcional*Consumidores)+(tasa de delincuencia inducida*Consumidores\
+		)+(tasa de delincuencia relacional
+	*Criminales)
+	~	Crimenes
+	~		|
+
+Población vulnerable= INTEG (
+	Crecimiento poblacional-entrada población propensa,
+		20000)
+	~	personas
+	~		|
+
+Fracción cultura de la ilegalidad=
+	(Consumidores+Criminales)/(Consumidores+Criminales+Población vulnerable)
+	~	1
+	~		|
+
+Crecimiento poblacional  = A FUNCTION OF( )
+	~	
+	~		|
+
+inversion en bienestar=A FUNCTION OF(inversion en bienestar) ~~|
+inversion en bienestar=
+	~	
+	~		|
+
+Cultura de la ilegalidad=A FUNCTION OF(Cultura de la ilegalidad,Fracción cultura de la ilegalidad\
+		,Funcion gráfica IB,funcion gráfica CRD) ~~|
+Cultura de la ilegalidad=
+	~	
+	~		|
+
+Funcion gráfica IB=A FUNCTION OF(Funcion gráfica IB,inversion en bienestar) ~~|
+Funcion gráfica IB=
+	~	
+	~		|
+
+tasa de delincuencia relacional=
+	0.001
+	~	Crimenes/personas
+	~		|
+
+tasa de delincuencia funcional=
+	0.001
+	~	Crimenes/personas
+	~		|
+
+tasa de delincuencia inducida=
+	0.4
+	~	Crimenes/personas
+	~		|
+
+Capturas  = A FUNCTION OF( Inversión real contra oferta)
+	~	
+	~		|
+
+Inversión real contra oferta=
+	Inversión contra oferta*(1-Corrupción)
+	~	
+	~		|
+
+Corrupción=
+	0.56
+	~	
+	~		|
+
+Salida cri  = A FUNCTION OF( Capturas,Criminales,tasa de salida criminales) ~~|
+Salida cri=
+	tasa de salida criminales*Criminales
+	~	
+	~		|
+
+Inversión contra oferta=A FUNCTION OF(Inversión contra oferta) ~~|
+Inversión contra oferta=
+	~	
+	~		|
+
+tasa de captacion de criminales=
+	0.069
+	~	1/year
+	~		|
+
+tasa de salida criminales=
+	0
+	~	
+	~		|
+
+Consumidores= INTEG (
+	Nuevos consumidores-salida Con,
+		1000)
+	~	personas
+	~		|
+
+Criminales= INTEG (
+	Reclutamiento-Salida cri,
+		1000)
+	~	personas
+	~		|
+
+Salida=
+	tasa de salida vulnerable*Población propensa
+	~	personas/year
+	~		|
+
+fraccion de criminales=
+	Criminales/(Población propensa+Criminales)
+	~	1
+	~		|
+
+Tasa de reclutamiento=
+	0.0056
+	~	1/year
+	~		|
+
+Población propensa= INTEG (
+	entrada población propensa-Nuevos consumidores-Reclutamiento-Salida,
+		10000)
+	~	personas
+	~		|
+
+Reclutamiento=
+	fraccion de criminales*Población propensa*Tasa de reclutamiento
+	~	personas/year
+	~		|
+
+tasa de salida vulnerable=
+	0
+	~	1/year
+	~		|
+
+salida Con=
+	Consumidores*tasa de salida consumidores
+	~	
+	~		|
+
+tasa de salida consumidores=
+	0
+	~	
+	~		|
+
+fraccion de Consumidores=
+	Consumidores/(Población propensa+Consumidores)
+	~	1
+	~		|
+
+Captación espontanea=
+	Población propensa*tasa de captación espontanea
+	~	personas/year
+	~		|
+
+Nuevos consumidores=
+	Captación espontanea+Captación de consumidores
+	~	personas/year
+	~		|
+
+Tasa de captación de consumidores=
+	0.06
+	~	1/year
+	~		|
+
+tasa de captación espontanea=
+	0.001
+	~	1/year
+	~		|
+
+********************************************************
+	.Control
+********************************************************~
+		Simulation Control Parameters
+	|
+
+FINAL TIME  = 60
+	~	year
+	~	The final time for the simulation.
+	|
+
+INITIAL TIME  = 0
+	~	year
+	~	The initial time for the simulation.
+	|
+
+SAVEPER  = 
+        TIME STEP
+	~	year [0,?]
+	~	The frequency with which output is stored.
+	|
+
+TIME STEP  = 1
+	~	year [0,?]
+	~	The time step for the simulation.
+	|
+
+\\\---/// Sketch information - do not modify anything except names
+V300  Do not put anything below this section - it will be ignored
+*View 1
+$192-192-192,0,Times New Roman|12||255-255-255|0-192-255|0-192-255|-1--1--1|0-0-0|96,96,90,0
+10,1,Consumidores,1733,-148,55,20,3,131,0,0,0,0,0,0,0,0,0,0,0,0
+10,2,Población propensa,1081,-140,60,48,3,131,0,0,0,0,0,0,0,0,0,0,0,0
+1,3,4,2,4,0,0,22,0,0,0,-1--1--1,,1|(940,-148)|
+11,4,266,848,-148,8,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,5,entrada población propensa,848,-105,71,35,40,131,0,0,-1,0,0,0,0,0,0,0,0,0
+1,6,8,1,4,0,0,22,0,0,0,-1--1--1,,1|(1595,-145)|
+1,7,8,2,100,0,0,22,0,0,0,-1--1--1,,1|(1320,-145)|
+11,8,420,1504,-145,8,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,9,Nuevos consumidores,1504,-120,44,19,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,10,fraccion de Consumidores,1601,211,48,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,11,Tasa de captación de consumidores,1684,-25,45,28,8,131,0,0,0,0,0,0,0,0,0,0,0,0
+1,12,2,10,1,0,0,0,0,64,0,-1--1--1,,1|(1333,124)|
+1,13,1,10,1,0,0,0,0,64,0,-1--1--1,,1|(1769,-28)|
+10,14,Captación espontanea,1521,-284,36,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,15,2,14,1,0,0,0,0,64,0,-1--1--1,,1|(1285,-248)|
+1,16,14,8,1,0,0,0,0,64,0,-1--1--1,,1|(1524,-252)|
+10,17,tasa de captación espontanea,1708,-317,56,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,18,17,14,1,0,0,0,0,64,0,-1--1--1,,1|(1608,-348)|
+10,19,Captación de consumidores,1528,-1,56,28,8,131,0,0,0,0,0,0,0,0,0,0,0,0
+1,20,11,19,1,0,0,0,0,64,0,-1--1--1,,1|(1612,-32)|
+1,21,10,19,1,0,0,0,0,64,0,-1--1--1,,1|(1596,160)|
+1,22,19,9,1,0,0,0,0,64,0,-1--1--1,,1|(1500,-68)|
+12,23,48,1080,-464,12,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,24,26,23,4,0,0,22,0,0,0,-1--1--1,,1|(1081,-372)|
+1,25,26,2,100,0,0,22,0,0,0,-1--1--1,,1|(1081,-228)|
+11,26,48,1081,-281,8,8,33,3,0,0,4,0,0,0,0,0,0,0,0,0
+10,27,Salida,1108,-281,21,11,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,28,2,26,1,0,0,0,0,64,0,-1--1--1,,1|(1016,-237)|
+1,29,2,19,1,0,0,0,0,64,0,-1--1--1,,1|(1344,-76)|
+10,30,Criminales,1093,360,55,20,3,131,0,0,0,0,0,0,0,0,0,0,0,0
+1,31,32,30,4,0,0,22,0,0,0,-1--1--1,,1|(1084,248)|
+11,32,574,1084,148,8,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,33,Reclutamiento,1084,175,52,19,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,34,Tasa de reclutamiento,1320,183,37,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,35,32,2,100,0,0,22,0,0,0,-1--1--1,,1|(1084,24)|
+1,36,2,33,1,0,0,0,0,64,0,-1--1--1,,1|(1017,28)|
+1,37,34,33,1,0,0,0,0,64,0,-1--1--1,,1|(1217,140)|
+10,38,fraccion de criminales,841,199,60,27,8,131,0,0,0,0,0,0,0,0,0,0,0,0
+1,39,30,38,1,0,0,0,0,64,0,-1--1--1,,1|(900,288)|
+1,40,2,38,1,0,0,0,0,64,0,-1--1--1,,1|(897,31)|
+1,41,38,33,1,0,0,0,0,64,0,-1--1--1,,1|(961,211)|
+12,42,48,2017,-137,12,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,43,45,42,4,0,0,22,0,0,0,-1--1--1,,1|(1947,-145)|
+1,44,45,1,100,0,0,22,0,0,0,-1--1--1,,1|(1832,-145)|
+11,45,48,1880,-145,8,8,33,3,0,0,4,0,0,0,0,0,0,0,0,0
+10,46,salida Con,1920,-145,36,11,40,131,0,0,3,0,0,0,0,0,0,0,0,0
+12,47,48,1089,595,12,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,48,50,47,4,0,0,22,0,0,0,-1--1--1,,1|(1080,541)|
+1,49,50,30,100,0,0,22,0,0,0,-1--1--1,,1|(1080,432)|
+11,50,48,1080,488,8,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,51,Salida cri,1080,507,32,11,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,52,tasa de salida vulnerable,1212,-420,48,19,8,131,0,0,0,0,0,0,0,0,0,0,0,0
+1,53,52,27,1,0,0,0,0,64,0,-1--1--1,,1|(1200,-345)|
+1,54,1,46,1,0,0,0,0,64,0,-1--1--1,,1|(1840,-101)|
+10,55,tasa de salida consumidores,1969,-368,72,19,8,131,0,0,0,0,0,0,0,0,0,0,0,0
+1,56,55,46,1,0,0,0,0,64,0,-1--1--1,,1|(2021,-272)|
+10,57,tasa de salida criminales,900,663,49,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,58,57,51,1,0,0,0,0,64,0,-1--1--1,,1|(977,584)|
+10,59,tasa de captacion de criminales,1333,15,68,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,60,59,19,1,0,0,0,0,64,0,-1--1--1,,1|(1392,-9)|
+1,61,30,51,1,0,0,0,0,64,0,-1--1--1,,1|(1041,419)|
+10,62,Inversión contra oferta,1448,712,52,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,63,Corrupción,1769,724,37,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,64,Inversión real contra oferta,1656,467,43,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,65,63,64,1,0,0,0,0,64,0,-1--1--1,,1|(1765,595)|
+1,66,62,64,1,0,0,0,0,64,0,-1--1--1,,1|(1516,591)|
+10,67,Capturas,1265,472,32,11,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,68,67,51,1,0,0,0,0,64,0,-1--1--1,,1|(1197,515)|
+1,69,64,67,1,0,0,0,0,64,0,-1--1--1,,1|(1473,495)|
+10,70,Crimenes relacionados con drogas,577,228,72,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,71,fraccion de criminales,1513,132,41,19,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+1,72,71,19,1,0,0,0,0,64,0,-1--1--1,,1|(1460,68)|
+10,73,Consumidores,220,140,55,11,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+1,74,73,70,1,0,0,0,0,64,0,-1--1--1,,1|(349,147)|
+10,75,tasa de delincuencia inducida,460,487,64,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,76,tasa de delincuencia funcional,708,460,64,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,77,tasa de delincuencia relacional,232,379,64,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,78,75,70,1,0,0,0,0,64,0,-1--1--1,,1|(512,428)|
+1,79,76,70,1,0,0,0,0,64,0,-1--1--1,,1|(669,368)|
+1,80,77,70,1,0,0,0,0,64,0,-1--1--1,,1|(412,316)|
+10,81,Cultura de la ilegalidad,688,32,41,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,82,inversion en bienestar,345,-121,40,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,83,81,5,1,0,0,0,0,64,0,-1--1--1,,1|(752,-12)|
+10,84,Población vulnerable,573,-157,52,33,3,131,0,0,0,0,0,0,0,0,0,0,0,0
+1,85,4,84,100,0,0,22,0,0,0,-1--1--1,,1|(732,-148)|
+12,86,48,580,-425,12,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,87,89,84,4,0,0,22,0,0,0,-1--1--1,,1|(581,-243)|
+1,88,89,86,100,0,0,22,0,0,0,-1--1--1,,1|(581,-364)|
+11,89,48,581,-304,8,8,33,3,0,0,4,0,0,0,0,0,0,0,0,0
+10,90,Crecimiento poblacional,628,-304,39,19,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,91,Criminales,172,195,43,11,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+1,92,91,70,1,0,0,0,0,64,0,-1--1--1,,1|(329,243)|
+10,93,Fracción cultura de la ilegalidad,116,-120,61,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,94,91,93,1,0,0,0,0,64,0,-1--1--1,,1|(57,43)|
+1,95,73,93,1,0,0,0,0,64,0,-1--1--1,,1|(144,27)|
+1,96,84,93,1,0,0,0,0,64,0,-1--1--1,,1|(385,-240)|
+10,97,Funcion gráfica IB,537,-33,68,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,98,82,97,1,0,0,0,0,64,0,-1--1--1,,1|(413,-61)|
+1,99,97,81,1,0,0,0,0,64,0,-1--1--1,,1|(588,15)|
+10,100,funcion gráfica CRD,533,108,48,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,101,70,100,1,0,0,0,0,64,0,-1--1--1,,1|(588,156)|
+1,102,100,81,1,0,0,0,0,64,0,-1--1--1,,1|(620,95)|
+1,103,93,81,1,0,0,0,0,64,0,-1--1--1,,1|(349,20)|
+1,104,84,5,1,0,0,0,0,64,0,-1--1--1,,1|(656,-108)|
+///---\\\
+:L<%^E!@
+4:Time
+5:Captación de consumidores
+9:simulación 2
+19:90,0
+24:0
+25:60
+26:60
+23:0
+15:0,0,0,0,0,0
+27:0,
+34:0,
+42:1
+72:0
+73:0
+35:Date
+36:YYYY-MM-DD
+37:2000
+38:1
+39:1
+40:0
+41:0
+95:0
+96:0
+77:0
+78:0
+93:0
+94:0
+92:0
+91:0
+90:0
+87:0
+75:
+43:
